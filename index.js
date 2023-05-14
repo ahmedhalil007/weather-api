@@ -3,6 +3,49 @@ const request = require('request');
 
 const app = express();
 
+const swaggerJSDoc = require('swagger-jsdoc')
+const swaggerUi = require('swagger-ui-express')
+
+const options ={
+    definition: {
+        openapi : '3.0.0',
+        info : {
+            title: 'API project',
+            version: '1.0.0'
+        },
+        servers:[
+            {
+                url: 'http://localhost:3000/'
+            }
+        ]
+    },
+    apis: ['./index.js']
+}
+
+const swaggerUsage = swaggerJSDoc(options)
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerUsage))
+
+/**
+ * @swagger
+ * /weather:
+ *   get:
+ *     summary: Get weather data by city name
+ *     parameters:
+ *       - in: query
+ *         name: city
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: Name of the city to get weather data for
+ *     responses:
+ *       200:
+ *         description: OK
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: string
+ */
+
 app.get('/weather', (req, res) => {
 	let { city } = req.query;
 	request(
@@ -18,6 +61,27 @@ app.get('/weather', (req, res) => {
 		}
 	);
 });
+
+/**
+ * @swagger
+ * /forecast:
+ *   get:
+ *     summary: Get weather forecast by city name
+ *     parameters:
+ *       - in: query
+ *         name: city
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: Name of the city to get weather forecast for
+ *     responses:
+ *       200:
+ *         description: OK
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: string
+ */
 
 app.get('/forecast', (req, res) => {
 	let { city } = req.query;
@@ -36,6 +100,34 @@ app.get('/forecast', (req, res) => {
 	);
 });
 
+/**
+ * @swagger
+ * /airpollution:
+ *   get:
+ *     summary: Get air pollution by latitude and longitude
+ *     parameters:
+ *       - in: query
+ *         name: lat
+ *         schema:
+ *           type: number
+ *         required: true
+ *         description: Latitude of the location to get air pollution for
+ *       - in: query
+ *         name: lon
+ *         schema:
+ *           type: number
+ *         required: true
+ *         description: Longitude of the location to get air pollution for
+ *     responses:
+ *       200:
+ *         description: OK
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: string
+ */
+ 
+ 
 app.get('/airpollution', (req, res) => {
     let { lat, lon } = req.query;
     request(
