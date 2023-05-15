@@ -6,6 +6,9 @@ const app = express();
 const swaggerJSDoc = require('swagger-jsdoc')
 const swaggerUi = require('swagger-ui-express')
 
+const logger = require('./logger');
+const cache = require('./cache')
+
 const options ={
     definition: {
         openapi : '3.0.0',
@@ -46,7 +49,7 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerUsage))
  *               type: string
  */
 
-app.get('/weather', (req, res) => {
+app.get('/weather', cache(300), (req, res) => {
 	let { city } = req.query;
 	request(
         `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=3dc7c22e94a17f50555eba0f5c380684`,
@@ -56,7 +59,7 @@ app.get('/weather', (req, res) => {
             }
 
 			if (response.statusCode === 200) {
-				res.send(`The weather in your city "${city}" is ${JSON.parse(body).weather[0].description}`);
+				res.send(`The weather in city "${city}" is ${JSON.parse(body).weather[0].description}`);
 			}
 		}
 	);
@@ -94,7 +97,7 @@ app.get('/forecast', (req, res) => {
             }
 
 			if (response.statusCode === 200) {
-				res.send(`The weather aaaa in your city "${city}" is ${JSON.parse(body).list[0].weather[0].description}`);
+				res.send(`The forecast weather city "${city}" is ${JSON.parse(body).list[0].weather[0].description}`);
 			}
 		}
 	);
@@ -138,11 +141,17 @@ app.get('/airpollution', (req, res) => {
             }
 
             if (response.statusCode === 200) {
-                res.send(`The air pollution in your location (latitude: ${lat}, longitude: ${lon}) is ${JSON.parse(body).list[0].main.aqi}`);
+                res.send(`The air pollution at location (latitude: ${lat}, longitude: ${lon}) is ${JSON.parse(body).list[0].main.aqi}`);
             }
         }
     );
+    
 });
+
+logger.error('This is an error message');
+logger.warn('This is a warning message');
+logger.info('This is an informational message');
+logger.debug('This is a debug message');
 
 
 app.listen(3000, () => console.log('Server started on port 3000'));

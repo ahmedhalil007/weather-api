@@ -20,9 +20,11 @@
   "homepage": "https://github.com/ahmedhalil007/weather-api#readme",
   "dependencies": {
     "express": "^4.18.2",
+    "node-cache": "^5.1.2",
     "nodemon": "^2.0.22",
     "request": "^2.88.2",
     "swagger-jsdoc": "^6.2.8",
-    "swagger-ui-express": "^4.6.3"
+    "swagger-ui-express": "^4.6.3",
+    "winston": "^3.8.2"
   }
 }
