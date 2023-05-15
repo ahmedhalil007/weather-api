@@ -1,0 +1,88 @@
+{
+	"info": {
+		"_postman_id": "bc616e79-79f2-4870-b0ce-3d821dc78233",
+		"name": "WeatherAPI",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Weather",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/weather?city=Visoko",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"weather"
+					],
+					"query": [
+						{
+							"key": "city",
+							"value": "Visoko"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Air pollution",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/airpollution?lat=51.5074&lon=100",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"airpollution"
+					],
+					"query": [
+						{
+							"key": "lat",
+							"value": "51.5074"
+						},
+						{
+							"key": "lon",
+							"value": "100"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Forecast",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/forecast?city=Visoko",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"forecast"
+					],
+					"query": [
+						{
+							"key": "city",
+							"value": "Visoko"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
