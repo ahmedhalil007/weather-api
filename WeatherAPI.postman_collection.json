@@ -11,19 +11,19 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:3000/weather?city=Visoko",
+					"raw": "http://localhost:3000/forecast?location=new york",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "3000",
 					"path": [
-						"weather"
+						"forecast"
 					],
 					"query": [
 						{
-							"key": "city",
-							"value": "Visoko"
+							"key": "location",
+							"value": "new york"
 						}
 					]
 				}
@@ -36,7 +36,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:3000/airpollution?lat=51.5074&lon=100",
+					"raw": "http://localhost:3000/airpollution?lat=78&lon=97",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -48,11 +48,11 @@
 					"query": [
 						{
 							"key": "lat",
-							"value": "51.5074"
+							"value": "78"
 						},
 						{
 							"key": "lon",
-							"value": "100"
+							"value": "97"
 						}
 					]
 				}
@@ -65,7 +65,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:3000/forecast?city=Visoko",
+					"raw": "http://localhost:3000/forecast?location=sarajevo",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -76,8 +76,8 @@
 					],
 					"query": [
 						{
-							"key": "city",
-							"value": "Visoko"
+							"key": "location",
+							"value": "sarajevo"
 						}
 					]
 				}
