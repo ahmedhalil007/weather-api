@@ -4,14 +4,12 @@ const path = require('path');
 // Define log levels and their corresponding colors
 const logLevels = {
   error: 'red',
-  warn: 'yellow',
-  info: 'green',
-  debug: 'blue'
+  info: 'green'
+  
 };
 
 // Create a Winston logger instance
 const logger = winston.createLogger({
-  levels: logLevels,
   format: winston.format.combine(
     winston.format.timestamp(),
     winston.format.colorize(),
