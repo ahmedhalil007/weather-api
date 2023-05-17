@@ -6,7 +6,7 @@ const app = express();
 const swaggerJSDoc = require('swagger-jsdoc')
 const swaggerUi = require('swagger-ui-express')
 
-const logger = require('./logger');
+const logger = require('./logger')
 const cache = require('./cache')
 
 const options ={
@@ -51,14 +51,17 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerUsage))
 
 app.get('/weather', cache(300), (req, res) => {
 	let { location } = req.query;
+    logger.info(`Received weather request for location: ${location}`);
 	request(
         `https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=3dc7c22e94a17f50555eba0f5c380684`,
 		function(error, response, body) {
             if (error || response.statusCode !== 200){
+                logger.error(`Error bad request for location: ${location}`);
                 res.status(400).send(`${JSON.parse(body)?.message ?? 'Bad request'}`);
             }
 
 			if (response.statusCode === 200) {
+                logger.info(`Successfully fetched 'weather' for location: ${location}`);
 				res.send(`The weather in city "${location}" is ${JSON.parse(body).weather[0].description}`);
 			}
 		}
@@ -88,15 +91,18 @@ app.get('/weather', cache(300), (req, res) => {
 
 app.get('/forecast', cache(300), (req, res) => {
 	let { location } = req.query;
+    logger.info(`Received forecast request for location: ${location}`);
 	request(
         `https://api.openweathermap.org/data/2.5/forecast?q=${location}&appid=3dc7c22e94a17f50555eba0f5c380684`,
 		function(error, response, body) {
             
             if (error || response.statusCode !== 200){
+                logger.error(`Error bad request for location: ${location}`);
                 res.status(400).send(`${JSON.parse(body)?.message ?? 'Bad request'}`);
             }
 
 			if (response.statusCode === 200) {
+                logger.info(`Successfully fetched 'current' for location: ${location}`);
 				res.send(`The forecast weather in city "${location}" is ${JSON.parse(body).list[0].weather[0].description}`);
 			}
 		}
@@ -133,28 +139,23 @@ app.get('/forecast', cache(300), (req, res) => {
  
 app.get('/airpollution', cache(300), (req, res) => {
     let { lat, lon } = req.query;
+    logger.info(`Received air pollution request for location: ${lat}, ${lon} `);
     request(
         `http://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=3dc7c22e94a17f50555eba0f5c380684`,
         function(error, response, body) {
             if (error || response.statusCode !== 200) {
+                logger.error(`Error bad request for location: ${lat}, ${lon}`);
                 res.status(400).send(`${JSON.parse(body)?.message ?? 'Bad request'}`);
             }
 
             if (response.statusCode === 200) {
+                logger.info(`Successfully fetched 'airpollution' for location: ${lat}, ${lon}`);
                 res.send(`The air pollution at location (latitude: ${lat}, longitude: ${lon}) is ${JSON.parse(body).list[0].main.aqi}`);
             }
         }
     );
     
 });
-
-
-
-
-logger.error('This is an error message');
-logger.warn('This is a warning message');
-logger.info('This is an informational message');
-logger.debug('This is a debug message');
 
 
 app.listen(3000, () => console.log('Server started on port 3000'));

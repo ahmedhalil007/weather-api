@@ -19,7 +19,7 @@ module.exports = duration => (req, res, next) => {
         res.send(cachedResponse);
     }
     else {
-        // if no t, replace —send 'Ot-h ilothod to set response to cache
+        
         console.log(`Cache miss for ${key}`);
         res.originalSend = res.send;
         res.send = body => {
