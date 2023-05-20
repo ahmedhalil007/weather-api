@@ -2,8 +2,6 @@ const NodeCache = require('node-cache');
 
 const cache = new NodeCache();
 module.exports = duration => (req, res, next) => {
-    // is request a GET?
-    // if not, call next
 
     if (req.method !== 'GET') {
         console.error('Cannot cache non-GET methods!');
@@ -19,7 +17,6 @@ module.exports = duration => (req, res, next) => {
         res.send(cachedResponse);
     }
     else {
-        
         console.log(`Cache miss for ${key}`);
         res.originalSend = res.send;
         res.send = body => {

@@ -14,5 +14,6 @@ to install all the necessary packages, after that it is necessary to enter
 
 Open the browser and type
  http://localhost:3000/api-docs - swagger with implemented endpoints. 
+ Then, sign in by entering username: ```student``` and password ```student12```. 
 
 Also, in this project Postman collection is included. 

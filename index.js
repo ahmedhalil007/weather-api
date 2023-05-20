@@ -3,11 +3,14 @@ const request = require('request');
 
 const app = express();
 
-const swaggerJSDoc = require('swagger-jsdoc')
-const swaggerUi = require('swagger-ui-express')
+const swaggerJSDoc = require('swagger-jsdoc');
+const swaggerUi = require('swagger-ui-express');
 
-const logger = require('./logger')
-const cache = require('./cache')
+const logger = require('./logger');
+const cache = require('./cache');
+const authentication = require('./authentication');
+
+app.use(authentication);
 
 const options ={
     definition: {
@@ -66,6 +69,7 @@ app.get('/weather', cache(300), (req, res) => {
 			}
 		}
 	);
+
 });
 
 /**
